@@ -18,7 +18,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 function DashboardWidget({ deleteWidget }: { deleteWidget: () => void }) {
 	return (
-		<Card m={5} w={"full"}>
+		<Card w={"full"}>
 			<CardHeader bg={"#E3E3E3"} h={35} p={0}>
 				<Flex justify={"flex-end"} align={"center"} h={"100%"} mr={2}>
 					<Menu>

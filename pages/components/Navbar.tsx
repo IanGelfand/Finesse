@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 
 const Links = [
 	{
-		label: "Dashboard",
+		label: "Home",
 		href: "/",
 	},
 	{
@@ -87,10 +87,9 @@ export default function Navbar({ children }: { children: ReactNode }) {
 					/>
 					<HStack alignItems={"center"}>
 						<Image src={logo} alt="Finesse Logo" width={35} />
-						<Text fontSize={"xl"} fontWeight={"semibold"}>
-							Finesse
-						</Text>
+
 						<HStack
+							pl={5}
 							as={"nav"}
 							spacing={4}
 							display={{ base: "none", md: "flex" }}

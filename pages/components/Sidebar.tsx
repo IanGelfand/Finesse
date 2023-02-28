@@ -37,15 +37,12 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
 	{
 		name: "Accounts",
-		items: [{ name: "Accounts", href: "/accounts" }, { name: "Owners" }],
-	},
-	{
-		name: "Finesse Accounts",
 		items: [
-			{ name: "Proprietary" },
-			{ name: "DTCC" },
-			{ name: "Baking" },
-			{ name: "General Ledger" },
+			{ name: "Accounts", href: "/accounts" },
+			{ name: "Owners" },
+			{
+				name: "Requests",
+			},
 		],
 	},
 ];
@@ -113,18 +110,18 @@ const NavItem = ({ name, children, ...rest }: any) => {
 					borderStyle: "none",
 				}}
 			>
-				<h2>
-					<AccordionButton>
-						<AccordionIcon />
-						<Box as="span" flex="1" textAlign="left">
-							{name}
-						</Box>
-					</AccordionButton>
-				</h2>
+				<AccordionButton>
+					<AccordionIcon />
+					<Box as="span" flex="1" textAlign="left">
+						{name}
+					</Box>
+				</AccordionButton>
+
 				<AccordionPanel pb={4}>
 					<Flex direction="column">
 						{children.map((child: any, index: number) => (
 							<Link
+								my={1}
 								key={index}
 								cursor={"pointer"}
 								ml="6"

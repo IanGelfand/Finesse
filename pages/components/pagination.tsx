@@ -33,10 +33,6 @@ function Pagination() {
 					/>
 				</PagButton>
 				<PagButton>1</PagButton>
-				<PagButton active>2</PagButton>
-				<PagButton>3</PagButton>
-				<PagButton>4</PagButton>
-				<PagButton>5</PagButton>
 				<PagButton>
 					<Icon
 						as={IoIosArrowForward}

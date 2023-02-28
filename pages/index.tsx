@@ -8,6 +8,8 @@ import {
 	Grid,
 	GridItem,
 	Text,
+	Wrap,
+	WrapItem,
 } from "@chakra-ui/react";
 import DashboardWidget from "./components/DashboardWidget";
 
@@ -16,17 +18,17 @@ function Home() {
 	return (
 		<Box
 			h={"full"}
+			w={"full"}
 			px={{
-				base: 0,
-				md: 10,
+				base: 2,
+				md: "15rem",
 			}}
 		>
 			<Flex
 				pt={{
 					base: 2,
-					md: 5,
+					md: "2rem",
 				}}
-				px={5}
 				direction={{
 					base: "column",
 					md: "row",
@@ -34,7 +36,12 @@ function Home() {
 				align={"center"}
 				justify={"space-between"}
 			>
-				<Text fontSize={"4xl"} fontWeight={"semibold"}>
+				<Text
+					w={"100%"}
+					textAlign={"left"}
+					fontSize={"4xl"}
+					fontWeight={"semibold"}
+				>
 					Dashboard
 				</Text>
 				<ButtonGroup gap={4}>
@@ -63,17 +70,17 @@ function Home() {
 					</Button>
 				</ButtonGroup>
 			</Flex>
-			<Grid templateColumns="repeat(2, 1fr)" gap={6}>
+			<Wrap mx={"-10"} my={5} justify={"center"} spacing={5}>
 				{widgets.map((widget, index) => (
-					<GridItem key={index}>
+					<WrapItem w={"full"} maxW={"45%"} key={index}>
 						<DashboardWidget
 							deleteWidget={() => {
 								setWidgets(widgets.filter((_, i) => i !== index));
 							}}
 						/>
-					</GridItem>
+					</WrapItem>
 				))}
-			</Grid>
+			</Wrap>
 		</Box>
 	);
 }
