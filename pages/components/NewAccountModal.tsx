@@ -22,7 +22,7 @@ import {
 	Select,
 	Spacer,
 } from "@chakra-ui/react";
-import states from "../../Utils/states.json";
+// import states from "../../Utils/states.json";
 
 function NewAccountModal({ isOpen, onClose }: any) {
 	const [currentTab, setCurrentTab] = React.useState(0);
@@ -91,14 +91,14 @@ function NewAccountModal({ isOpen, onClose }: any) {
 										<FormControl isRequired>
 											<FormLabel>State</FormLabel>
 											<Select placeholder="Select State">
-												{states.map((state: any) => (
+												{/* {states.map((state: any) => (
 													<option
 														key={state.abbreviation}
 														value={state.abbreviation}
 													>
 														{state.name}
 													</option>
-												))}
+												))} */}
 											</Select>
 										</FormControl>
 										<Spacer />
