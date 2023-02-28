@@ -61,14 +61,9 @@ const NavLink = ({ href, children }: { href: string; children: ReactNode }) => {
 			rounded={"md"}
 			_hover={{
 				textDecoration: "none",
-				bg: useColorModeValue("gray.200", "gray.700"),
+				bg: "gray.200",
 			}}
-			bg={
-				//if current page is the same as the link, then highlight it
-				href === currentPath
-					? useColorModeValue("gray.200", "gray.700")
-					: undefined
-			}
+			bg={href === currentPath ? "gray.200" : undefined}
 			href={href}
 		>
 			{children}
@@ -144,7 +139,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
 				) : null}
 			</Box>
 
-			<Box h={"full"} bg={useColorModeValue("gray.100", "gray.900")}>
+			<Box h={"full"} bg={"gray.100"}>
 				{children}
 			</Box>
 		</Box>

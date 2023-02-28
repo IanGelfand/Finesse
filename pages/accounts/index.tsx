@@ -57,7 +57,7 @@ function Accounts() {
 			setCheckedItems(new Array(data.length).fill(false));
 			setLoading(false);
 		}, 3000);
-	}, []);
+	}, [data.length]);
 
 	const filteredData = data.filter((row) => {
 		return Object.values(row)
@@ -147,10 +147,9 @@ function Accounts() {
 						</Flex>
 						<Flex>
 							<InputGroup mt={2}>
-								<InputLeftElement
-									pointerEvents="none"
-									children={<SearchIcon color="gray.300" />}
-								/>
+								<InputLeftElement pointerEvents="none">
+									<SearchIcon color="gray.300" />
+								</InputLeftElement>
 								<Input
 									value={searchTerm}
 									onChange={(e) => setSearchTerm(e.target.value)}
