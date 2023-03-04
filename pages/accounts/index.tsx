@@ -32,11 +32,11 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon, ChevronRightIcon, SearchIcon } from "@chakra-ui/icons";
 import { FiRefreshCcw } from "react-icons/fi";
-import Link from "next/link";
 import { faker } from "@faker-js/faker";
-import Pagination from "../components/pagination";
+import Pagination from "../components/Pagination";
 import { IoFilterOutline } from "react-icons/io5";
 import NewAccountModal from "../components/NewAccountModal";
+import DataTable from "../components/DataTable";
 
 function Accounts() {
 	const toast = useToast();
@@ -65,7 +65,7 @@ function Accounts() {
 			);
 			setCheckedItems(new Array(data.length).fill(false));
 			setLoading(false);
-		}, 3000);
+		}, 2000);
 	}, [data.length]);
 
 	const filteredData = data.filter((row) => {
@@ -79,10 +79,20 @@ function Accounts() {
 		<>
 			<Flex>
 				<Sidebar />
-				<Box w={"full"} minH={"808px"}>
+				<Box
+					w={"full"}
+					minH={"808px"}
+					mx={{
+						base: "2",
+						md: "8",
+					}}
+					my={{
+						base: "2",
+						md: "5",
+					}}
+				>
 					<Breadcrumb
-						p={5}
-						pb={0}
+						pb={2}
 						spacing="8px"
 						separator={<ChevronRightIcon color="gray.500" />}
 					>
@@ -90,73 +100,33 @@ function Accounts() {
 							<BreadcrumbLink href="#">Accounts</BreadcrumbLink>
 						</BreadcrumbItem>
 
-						<BreadcrumbItem>
-							<BreadcrumbLink href="#">Client Accounts</BreadcrumbLink>
-						</BreadcrumbItem>
-
 						<BreadcrumbItem isCurrentPage>
 							<BreadcrumbLink href="#">Manage</BreadcrumbLink>
 						</BreadcrumbItem>
 					</Breadcrumb>
-					<Card
-						maxW={"full"}
-						m={{
-							base: "2",
-							md: "5",
-						}}
-					>
+					<Card borderRadius={15}>
 						<CardHeader>
+							<Text fontSize={"3xl"} mb={5} fontWeight={"semibold"}>
+								Accounts
+							</Text>
 							<Flex
-								align={"center"}
 								justify={"space-between"}
 								direction={{
 									base: "column",
 									md: "row",
 								}}
 							>
-								<Text fontSize={"3xl"} fontWeight={"semibold"}>
-									Client Accounts
-								</Text>
-								<ButtonGroup gap={2}>
-									<Button
-										onClick={() => {
-											setLoading(true);
-											setTimeout(() => {
-												setLoading(false);
-											}, 2000);
-										}}
-										size={"sm"}
-										bg={"#ffff"}
-										variant={"outline"}
-									>
-										<FiRefreshCcw />
-									</Button>
-									<Button
-										isDisabled={!checkedItems.filter((item) => item).length}
-										size={"sm"}
-										bg={"#ffff"}
-										variant={"outline"}
-									>
-										<Text fontSize={"sm"}>Delete</Text>
-									</Button>
-									<Button
-										size={"sm"}
-										_hover={{
-											bg: "#7BB5E3",
-											color: "#000000",
-										}}
-										color={"#ffff"}
-										bg={"#446B91"}
-										leftIcon={<AddIcon />}
-										onClick={onOpen}
-									>
-										<Text fontSize={"sm"}>Add Account</Text>
-									</Button>
-								</ButtonGroup>
-							</Flex>
-							<Flex justify={"space-between"} align={"center"}>
-								<Stack align={"center"} direction={"row"} spacing={4} mt={5}>
-									<InputGroup minW={"50%"} maxW={"50%"}>
+								<Stack
+									direction={{
+										base: "column",
+										lg: "row",
+									}}
+									w={{
+										base: "full",
+										lg: "50%",
+									}}
+								>
+									<InputGroup>
 										<InputLeftElement pointerEvents="none">
 											<SearchIcon color="gray.300" />
 										</InputLeftElement>
@@ -180,7 +150,52 @@ function Accounts() {
 										<IoFilterOutline size={50} />
 									</Button>
 								</Stack>
-								<Pagination />
+								<ButtonGroup
+									m={{
+										base: "2",
+										md: "0",
+									}}
+									justifyContent={"center"}
+									gap={2}
+								>
+									<Button
+										p={4}
+										onClick={() => {
+											setLoading(true);
+											setTimeout(() => {
+												setLoading(false);
+											}, 2000);
+										}}
+										size={"sm"}
+										bg={"#ffff"}
+										variant={"outline"}
+									>
+										<FiRefreshCcw />
+									</Button>
+									<Button
+										p={4}
+										isDisabled={!checkedItems.filter((item) => item).length}
+										size={"sm"}
+										bg={"#ffff"}
+										variant={"outline"}
+									>
+										<Text fontSize={"sm"}>Delete</Text>
+									</Button>
+									<Button
+										p={4}
+										size={"sm"}
+										_hover={{
+											bg: "#7BB5E3",
+											color: "#000000",
+										}}
+										color={"#ffff"}
+										bg={"#446B91"}
+										leftIcon={<AddIcon />}
+										onClick={onOpen}
+									>
+										<Text fontSize={"sm"}>Add Account</Text>
+									</Button>
+								</ButtonGroup>
 							</Flex>
 						</CardHeader>
 						{loading ? (
@@ -188,85 +203,37 @@ function Accounts() {
 								<Spinner size={"lg"} color={"#446B91"} />
 							</Center>
 						) : (
-							<TableContainer minH={"571px"} maxW="full">
-								<Table overflowX={"auto"}>
-									<Thead>
-										<Tr>
-											<Th>
-												<Checkbox
-													isChecked={allChecked}
-													isIndeterminate={isIndeterminate}
-													onChange={(e) => {
-														setCheckedItems(
-															new Array(data.length).fill(e.target.checked)
-														);
-													}}
-												/>
-											</Th>
-											<Th>Account ID</Th>
-											<Th>Username</Th>
-											<Th>Email</Th>
-											<Th>Phone Number</Th>
-										</Tr>
-									</Thead>
-									<Tbody>
-										{filteredData.length === 0 && !loading && (
-											<Tr>
-												<Td></Td>
-												<Td></Td>
-												<Td>
-													<Flex
-														justify={"center"}
-														align={"center"}
-														h={"full"}
-														w={"full"}
-													>
-														<Text fontSize={"xl"} fontWeight={"semibold"}>
-															No accounts found
-														</Text>
-													</Flex>
-												</Td>
-											</Tr>
-										)}
-										{filteredData.map((dataItem, index) => (
-											<Tr key={index}>
-												<Td>
-													<Checkbox
-														isChecked={checkedItems[index]}
-														onChange={(e) => {
-															const newCheckedItems = checkedItems.map(
-																(item, i) =>
-																	i === index ? e.target.checked : item
-															);
-
-															setCheckedItems(newCheckedItems);
-														}}
-													/>
-												</Td>
-
-												<Td>
-													<Link
-														style={{
-															color: "#0081FF",
-															textDecoration: "underline",
-														}}
-														href={`/accounts/${dataItem.id}`}
-													>
-														{dataItem.id}
-													</Link>
-												</Td>
-												<Td>{dataItem.username}</Td>
-												<Td>{dataItem.email}</Td>
-												<Td>{dataItem.phone}</Td>
-											</Tr>
-										))}
-									</Tbody>
-								</Table>
-							</TableContainer>
+							<DataTable
+								data={filteredData}
+								columns={[
+									{
+										key: "id",
+										header: "ID",
+									},
+									{
+										key: "username",
+										header: "Username",
+									},
+									{
+										key: "email",
+										header: "Email",
+									},
+									{
+										key: "phone",
+										header: "Phone",
+									},
+								]}
+								checkedItems={checkedItems}
+								setCheckedItems={setCheckedItems}
+								allChecked={allChecked}
+								isIndeterminate={isIndeterminate}
+							/>
 						)}
+						<Pagination />
 					</Card>
 				</Box>
 			</Flex>
+
 			<NewAccountModal isOpen={isOpen} onClose={onClose} />
 		</>
 	);

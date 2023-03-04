@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Modal,
 	ModalOverlay,
@@ -21,92 +21,119 @@ import {
 	Flex,
 	Select,
 	Spacer,
+	Grid,
 } from "@chakra-ui/react";
 // import states from "../../Utils/states.json";
 
 function NewAccountModal({ isOpen, onClose }: any) {
-	const [currentTab, setCurrentTab] = React.useState(0);
-	console.log(currentTab);
+	const [activeIndex, setActiveIndex] = useState(0);
+
+	const InputSet = ({ label, type }: any) => {
+		return (
+			<FormControl isRequired id={label} key={label}>
+				<FormLabel>{label}</FormLabel>
+				<Input type={type} />
+			</FormControl>
+		);
+	};
+
+	const personalInputs = [
+		{
+			label: "First Name",
+			type: "name",
+		},
+		{
+			label: "Last Name",
+			type: "text",
+		},
+		{
+			label: "Email",
+			type: "email",
+		},
+		{
+			label: "Phone Number",
+			type: "tel",
+		},
+		{
+			label: "Birth Date",
+			type: "date",
+		},
+		{
+			label: "Social Security Number",
+			type: "password",
+		},
+	];
+
+	const addressInputs = [
+		{
+			label: "Street Address",
+			type: "text",
+		},
+		{
+			label: "City",
+			type: "text",
+		},
+		{
+			label: "State",
+			type: "text",
+		},
+		{
+			label: "Zip Code",
+			type: "text",
+		},
+	];
+
 	return (
 		<>
-			<Modal isCentered isOpen={isOpen} onClose={onClose}>
+			<Modal size={"3xl"} isCentered isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader p={0}>
-						<Tabs isFitted variant={"enclosed"} tabIndex={currentTab}>
-							<TabList tabIndex={currentTab}>
+						<Tabs isFitted index={activeIndex} onChange={setActiveIndex}>
+							<TabList>
 								<Tab>Personal</Tab>
 								<Tab>Address</Tab>
 							</TabList>
 
-							<TabPanels>
+							<TabPanels p={5}>
 								<TabPanel>
-									<Text>Personal Identification</Text>
-									<Flex>
-										<FormControl isRequired>
-											<FormLabel>First Name</FormLabel>
-											<Input type="name" />
-										</FormControl>
-										<FormControl isRequired>
-											<FormLabel>Last Name</FormLabel>
-											<Input type="text" />
-										</FormControl>
-									</Flex>
-									<Flex>
-										<FormControl isRequired>
-											<FormLabel>Email</FormLabel>
-											<Input type="email" />
-										</FormControl>
-										<FormControl isRequired>
-											<FormLabel>Phone Number</FormLabel>
-											<Input type="tel" />
-										</FormControl>
-									</Flex>
-									<Flex>
-										<FormControl isRequired>
-											<FormLabel>Birth Date</FormLabel>
-											<Input type="date" />
-										</FormControl>
-										<FormControl isRequired>
-											<FormLabel>Social Security Number</FormLabel>
-											<Input type="password" />
-										</FormControl>
-									</Flex>
+									<Text fontSize={"2xl"} mb={5}>
+										Personal Identification
+									</Text>
+									<Grid
+										templateColumns={{
+											base: "repeat(1, 1fr)",
+											md: "repeat(2, 1fr)",
+										}}
+										gap={4}
+									>
+										{personalInputs.map((input, index) => (
+											<InputSet
+												key={index}
+												label={input.label}
+												type={input.type}
+											/>
+										))}
+									</Grid>
 								</TabPanel>
 								<TabPanel>
 									<Text>Address</Text>
 
-									<Flex>
-										<FormControl isRequired>
-											<FormLabel>Street Address</FormLabel>
-											<Input type="text" />
-										</FormControl>
-									</Flex>
-									<Flex>
-										<FormControl>
-											<FormLabel>Apt Number</FormLabel>
-											<Input type="text" />
-										</FormControl>
-										<Spacer />
-										<FormControl isRequired>
-											<FormLabel>State</FormLabel>
-											<Select placeholder="Select State">
-												{/* {states.map((state: any) => (
-													<option
-														key={state.abbreviation}
-														value={state.abbreviation}
-													>
-														{state.name}
-													</option>
-												))} */}
-											</Select>
-										</FormControl>
-										<Spacer />
-										<FormControl isRequired>
-											<FormLabel>Zip Code</FormLabel>
-											<Input type="text" />
-										</FormControl>
-									</Flex>
+									<Grid
+										templateColumns={{
+											base: "repeat(1, 1fr)",
+											md: "repeat(2, 1fr)",
+										}}
+										gap={4}
+									>
+										{addressInputs.map((input, index) => (
+											<InputSet
+												key={index}
+												label={input.label}
+												type={input.type}
+											/>
+										))}
+									</Grid>
 								</TabPanel>
 							</TabPanels>
 						</Tabs>
@@ -114,21 +141,24 @@ function NewAccountModal({ isOpen, onClose }: any) {
 
 					<ModalFooter>
 						<Flex w={"full"} justify={"space-between"}>
-							<Button mr={3} onClick={onClose}>
-								Close
-							</Button>
+							<Button onClick={onClose}>Cancel</Button>
+
 							<Button
 								bg={"#446B91"}
 								color={"#ffff"}
+								_hover={{
+									bg: "#7BB5E3",
+									color: "#000000",
+								}}
 								onClick={() => {
-									if (currentTab === 0) {
-										setCurrentTab(1);
+									if (activeIndex === 0) {
+										setActiveIndex(1);
 									} else {
-										setCurrentTab(0);
+										onClose();
 									}
 								}}
 							>
-								{currentTab === 0 ? "Next Step" : "Finish"}
+								{activeIndex === 0 ? "Next" : "Add Account"}
 							</Button>
 						</Flex>
 					</ModalFooter>

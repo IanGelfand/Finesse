@@ -29,7 +29,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
-
+import { useRouter } from "next/router";
 interface LinkItemProps {
 	name: string;
 	items: Array<{ name: string; href?: string }>;
@@ -42,6 +42,7 @@ const LinkItems: Array<LinkItemProps> = [
 			{ name: "Owners" },
 			{
 				name: "Requests",
+				href: "/accounts/requests",
 			},
 		],
 	},
@@ -103,6 +104,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 };
 
 const NavItem = ({ name, children, ...rest }: any) => {
+	const router = useRouter();
+	const path = router.asPath.split("/")[1];
 	return (
 		<Accordion allowToggle defaultIndex={0}>
 			<AccordionItem
@@ -121,6 +124,7 @@ const NavItem = ({ name, children, ...rest }: any) => {
 					<Flex direction="column">
 						{children.map((child: any, index: number) => (
 							<Link
+								color={`/${path}` === child.href ? "blue" : ""}
 								my={1}
 								key={index}
 								cursor={"pointer"}

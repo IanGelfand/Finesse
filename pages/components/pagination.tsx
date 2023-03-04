@@ -1,26 +1,18 @@
 import React from "react";
-import { Flex, chakra, Icon } from "@chakra-ui/react";
+import { Flex, chakra, Icon, Button } from "@chakra-ui/react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 function Pagination() {
 	const PagButton = (props: any) => {
 		return (
-			<chakra.button
-				mx={1}
-				px={4}
-				py={2}
-				rounded="md"
-				color="gray.700"
-				opacity={props.disabled && 0.6}
-				cursor={props.disabled && "not-allowed"}
-			>
+			<Button variant={"outline"} mx={1} px={4} py={2} rounded="full">
 				{props.children}
-			</chakra.button>
+			</Button>
 		);
 	};
 
 	return (
-		<Flex alignItems="center" justifyContent="center">
+		<Flex alignItems="center" justifyContent="center" m={5}>
 			<Flex>
 				<PagButton>
 					<Icon
@@ -32,7 +24,19 @@ function Pagination() {
 						boxSize={4}
 					/>
 				</PagButton>
-				<PagButton>1</PagButton>
+				{[1, 2, 3, 4, 5].map((page, index) => (
+					<Button
+						key={index}
+						color={page === 1 ? "white" : "#00000"}
+						bg={page === 1 ? "#446B91" : "white"}
+						mx={1}
+						px={4}
+						py={2}
+						rounded="full"
+					>
+						{page}
+					</Button>
+				))}
 				<PagButton>
 					<Icon
 						as={IoIosArrowForward}

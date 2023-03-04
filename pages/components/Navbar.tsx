@@ -86,7 +86,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
 						onClick={isOpen ? onClose : onOpen}
 					/>
 					<HStack alignItems={"center"}>
-						<Image src={logo} alt="Finesse Logo" width={35} />
+						<Image src={logo} alt="Finesse Logo" width={75} />
 
 						<HStack
 							pl={5}
