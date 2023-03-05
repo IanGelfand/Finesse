@@ -43,7 +43,6 @@ import { IoFilterOutline } from "react-icons/io5";
 import { FiRefreshCcw } from "react-icons/fi";
 import DataTable from "../components/DataTable";
 import Pagination from "../components/Pagination";
-import { faker } from "@faker-js/faker";
 
 function SingleAccount() {
 	const [isMobile] = useMediaQuery("(max-width: 768px)");
