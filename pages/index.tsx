@@ -5,11 +5,9 @@ import {
 	Button,
 	ButtonGroup,
 	Flex,
+	Text,
 	Grid,
 	GridItem,
-	Text,
-	Wrap,
-	WrapItem,
 } from "@chakra-ui/react";
 import DashboardWidget from "./components/DashboardWidget";
 
@@ -70,17 +68,24 @@ function Home() {
 					</Button>
 				</ButtonGroup>
 			</Flex>
-			<Wrap mx={"-10"} my={5} justify={"center"} spacing={5}>
-				{widgets.map((widget, index) => (
-					<WrapItem w={"full"} maxW={"45%"} key={index}>
+			<Grid
+				templateColumns={{
+					base: "repeat(1, 1fr)",
+					md: "repeat(2, 1fr)",
+				}}
+				gap={6}
+				my={5}
+			>
+				{widgets.map((_, index: number) => (
+					<GridItem key={index}>
 						<DashboardWidget
 							deleteWidget={() => {
 								setWidgets(widgets.filter((_, i) => i !== index));
 							}}
 						/>
-					</WrapItem>
+					</GridItem>
 				))}
-			</Wrap>
+			</Grid>
 		</Box>
 	);
 }

@@ -11,6 +11,8 @@ import {
 	Tr,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { BsTable } from "react-icons/bs";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
 function DataTable({
 	data,
@@ -53,6 +55,9 @@ function DataTable({
 								)}
 							</Th>
 						))}
+						<Th>
+							<BsTable />
+						</Th>
 					</Tr>
 				</Thead>
 				<Tbody>
@@ -85,6 +90,9 @@ function DataTable({
 									)}
 								</Td>
 							))}
+							<Td>
+								<BiDotsVerticalRounded />
+							</Td>
 						</Tr>
 					))}
 				</Tbody>

@@ -9,32 +9,20 @@ import {
 	Card,
 	CardHeader,
 	Center,
-	Checkbox,
 	Flex,
-	Icon,
 	Input,
 	InputGroup,
 	InputLeftElement,
 	Select,
 	Spinner,
 	Stack,
-	Table,
-	TableContainer,
-	Tbody,
-	Td,
 	Text,
-	Th,
-	Thead,
-	Tr,
-	useDisclosure,
-	useToast,
 	Tab,
 	TabList,
 	Tabs,
 	useMediaQuery,
 	TabPanels,
 	TabPanel,
-	calc,
 } from "@chakra-ui/react";
 import Sidebar from "../components/Sidebar";
 import { AddIcon, ChevronRightIcon, SearchIcon } from "@chakra-ui/icons";
@@ -59,7 +47,6 @@ function SingleAccount() {
 
 	const allChecked = checkedItems.every(Boolean);
 	const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
-	const { isOpen, onOpen, onClose } = useDisclosure();
 	const dummyData: any = [
 		{
 			id: "1",
@@ -311,7 +298,6 @@ function SingleAccount() {
 												color={"#ffff"}
 												bg={"#446B91"}
 												leftIcon={<AddIcon />}
-												onClick={onOpen}
 											>
 												<Text fontSize={"sm"}>Add Account</Text>
 											</Button>

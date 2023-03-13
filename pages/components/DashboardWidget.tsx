@@ -9,10 +9,7 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
-	Skeleton,
 	SkeletonText,
-	Stack,
-	Text,
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 

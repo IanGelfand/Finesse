@@ -10,36 +10,24 @@ import {
 	Card,
 	CardHeader,
 	Center,
-	Checkbox,
 	Flex,
-	Icon,
 	Input,
 	InputGroup,
 	InputLeftElement,
 	Select,
 	Spinner,
 	Stack,
-	Table,
-	TableContainer,
-	Tbody,
-	Td,
 	Text,
-	Th,
-	Thead,
-	Tr,
-	useDisclosure,
-	useToast,
 } from "@chakra-ui/react";
 import { AddIcon, ChevronRightIcon, SearchIcon } from "@chakra-ui/icons";
 import { FiRefreshCcw } from "react-icons/fi";
 import { faker } from "@faker-js/faker";
 import Pagination from "../components/Pagination";
 import { IoFilterOutline } from "react-icons/io5";
-import NewAccountModal from "../components/NewAccountModal";
 import DataTable from "../components/DataTable";
+import Link from "next/link";
 
 function Accounts() {
-	const toast = useToast();
 	const [data, setData] = useState<
 		{ id: string; username: string; email: string; phone: string }[]
 	>([]);
@@ -51,21 +39,18 @@ function Accounts() {
 
 	const allChecked = checkedItems.every(Boolean);
 	const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	useEffect(() => {
-		setTimeout(() => {
-			setData(
-				Array.from({ length: 10 }, () => ({
-					id: faker.database.mongodbObjectId(),
-					username: faker.internet.userName(),
-					email: faker.internet.email(),
-					phone: faker.phone.number(),
-				}))
-			);
-			setCheckedItems(new Array(data.length).fill(false));
-			setLoading(false);
-		}, 2000);
+		setData(
+			Array.from({ length: 10 }, () => ({
+				id: faker.database.mongodbObjectId(),
+				username: faker.internet.userName(),
+				email: faker.internet.email(),
+				phone: faker.phone.number(),
+			}))
+		);
+		setCheckedItems(new Array(data.length).fill(false));
+		setLoading(false);
 	}, [data.length]);
 
 	const filteredData = data.filter((row) => {
@@ -191,9 +176,14 @@ function Accounts() {
 										color={"#ffff"}
 										bg={"#446B91"}
 										leftIcon={<AddIcon />}
-										onClick={onOpen}
 									>
-										<Text fontSize={"sm"}>Add Account</Text>
+										<Link
+											href={{
+												pathname: "/accounts/new-account",
+											}}
+										>
+											Add Account
+										</Link>
 									</Button>
 								</ButtonGroup>
 							</Flex>
@@ -233,8 +223,6 @@ function Accounts() {
 					</Card>
 				</Box>
 			</Flex>
-
-			<NewAccountModal isOpen={isOpen} onClose={onClose} />
 		</>
 	);
 }

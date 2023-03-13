@@ -12,9 +12,7 @@ import {
 	MenuList,
 	MenuItem,
 	useDisclosure,
-	useColorModeValue,
 	Stack,
-	Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { AiOutlineBell } from "react-icons/ai";
